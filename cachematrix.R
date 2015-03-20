@@ -1,28 +1,22 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
-
-## > c = rbind(c(1, -1/4), c(-1/4, 1))
-## > class(c)
-## [1] "matrix"
-## > solve(c)
-##          [,1]      [,2]
-## [1,] 1.0666667 0.2666667
-## [2,] 0.2666667 1.0666667
+## cachematrix.R
 ##
-## > cc <- makeCacheMatrix(c)
-## > cacheSolve(cc)
-##           [,1]      [,2]
-## [1,] 1.0666667 0.2666667
-## [2,] 0.2666667 1.0666667
+## Create a cache matrix object that can be used to
+## repeatably solve the inverse of the marix, but only
+## calculates the inverse once.
 ##
-## > cacheSolve(cc)
-## getting cached data
-##           [,1]      [,2]
-## [1,] 1.0666667 0.2666667
-## [2,] 0.2666667 1.0666667
+## Usage:
+##  M <- rbind(c(1, -1/4), c(-1/4, 1))
+##
+##  cacheMatrix <- makeCacheMatrix(M)
+##  cacheSolve(cacheMatrix)
+##
+##  cacheMatrix$set(M)      # Change the cached matrix.
+##  M <- cacheMatrix$get()  # Returns the cached matrix.
+##
+##  cacheMatrix$setInverse(solve(data, ...)) # Private function containing cached inverse of x
+##  cacheMatrix$getInverse()                 # Private function used to get the cached inverse of x
 
+## Create a cacheMatrix object for an invertale matrix.
 makeCacheMatrix <- function(x = matrix()) {
         s <- NULL
         
